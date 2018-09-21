@@ -31,7 +31,7 @@ export PROJ_GIT_ROOT=${PROJECT_ROOT}/build-vhost-use-docker
 ### 1. sphinx
 
 ```
-docker build -t sphinx https://github.com/lua511/build-vhost-use-docker.git:sphinx
+docker build -t sphinx https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
 ```
 
 or from local:
@@ -43,7 +43,7 @@ docker build -t sphinx ./sphinx
 ### 2. gen-nginx-sites
 
 ```
-docker build -t gen-nginx-sites https://github.com/lua511/build-vhost-use-docker.git:gen-nginx-sites
+docker build -t gen-nginx-sites https://github.com/lua511/build-vhost-use-docker.git#master:gen-nginx-sites
 ```
 
 or from local:
@@ -55,7 +55,7 @@ docker build -t gen-nginx-sites ./gen-nginx-sites
 ### 3. nginx
 
 ```
-docker build -t nginx https://github.com/lua511/build-vhost-use-docker.git:nginx
+docker build -t nginx https://github.com/lua511/build-vhost-use-docker.git#master:nginx
 ```
 
 or from local:
@@ -66,6 +66,20 @@ docker build -t nginx ./nginx
 
 
 if your like,google some information about sphinx
+
+## IMPORTANT wwwroot & wwwcfg may be created
+
+* if you clone the repo from git hub, you can see there is a wwwroot folder under the repo
+* if you just follow the text,create some folder:
+```
+# your root dir is YOUR_PROJECT_ROOT
+cd ${YOUR_PROJECT_ROOT}
+mkdir wwwroot
+mkdir wwwcfg
+
+# do export it as PROJECT_ROOT, if you wish to copy some following cmd
+export PROJECT_ROOT=${YOUR_PROJECT_ROOT}
+```
 
 ## 3. place some site under wwwroot
 
@@ -88,6 +102,7 @@ docker run --rm -it -v ${PROJECT_ROOT}/wwwroot/liuan.blog:/data -w /data sphinx 
 ### 3. build site as need
 
 ```
+# IMPORTART change liuan.blog to your own domain name
 docker run --rm -v ${PROJECT_ROOT}/wwwroot/liuan.blog:/data -w /data sphinx make html
 ```
 
