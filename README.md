@@ -78,7 +78,7 @@ mkdir wwwroot
 mkdir wwwcfg
 
 # do export it as PROJECT_ROOT, if you wish to copy some following cmd
-export PROJECT_ROOT=${YOUR_PROJECT_ROOT}
+export PROJECT_ROOT=$(pwd)
 ```
 
 ## 3. place some site under wwwroot

@@ -30,3 +30,12 @@ docker image rm sphinx
 ```
 docker build -t sphinx https://github.com/lua511/build-vhost-use-docker.git:sphinx
 ```
+
+## for vhost
+*vhost is another project which is supported by build-vhost-use-docker/this_repo*
+
+```
+docker build -t vhc_sphinx https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
+docker tag vhc_sphinx lua511/vhc_sphinx
+docker push lua511/vhc_sphinx
+```
