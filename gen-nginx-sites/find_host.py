@@ -43,7 +43,7 @@ if __name__ == '__main__':
     config_dir = '/wwwconfig'
 
     dirs = os.listdir(root_dir)
-    host_pattern = r'^[a-zA-Z0-9\-\.]+\.(com|org|net|wiki|cc|cn|blog|xyz)$'
+    host_pattern = r'^[a-zA-Z0-9\-\.]+\.(com|org|net|wiki|cc|cn|blog|xyz|local)$'
     writen_cnt = 0
     for k in dirs:
         if re.match(host_pattern,k):
