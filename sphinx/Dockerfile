@@ -1,4 +1,5 @@
 FROM ubuntu:16.04 as sphinx-base
+ENV LANG C.UTF-8
 ADD resources /wdir
 RUN export DEBIAN_FRONTEND="noninteractive" && apt-get -y update && apt-get install -y python3 curl make && curl https://bootstrap.pypa.io/get-pip.py | python3 && rm -rf /var/lib/apt/lists/* && pip3 install -r /wdir/requirements.txt
 
