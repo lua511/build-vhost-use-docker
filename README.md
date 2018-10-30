@@ -2,128 +2,59 @@
 
 before going down, google Nginx.
 
-**BEST PRACTIC OF THIS ARTICLE:**
+# brief
+
+
+### create from local
 
 ```
-export PROJ_GIT_ROOT=[[YOUR_PROJECT_ROOT]]
-# then keep use this shell
-# just copy the following commands and paste
-```
+cd [[my_git_source_root]]
 
-#steps
+docker build --target quickstart -t lua511/vhc_quickstart ./sphinx
 
-## 1. clone this repo OR JUST follow the steps in this readme.md
+docker build --target gen-all-html -t ua511/vhc_gen_html ./sphinx
 
-*PROJECT_ROOT is your root directory,the top of this repo on local disk.*
+docker build --target gen-nginx-config -t lua511/vhc_config_nginx ./sphinx
 
-```
-cd ${PROJECT_ROOT}
-git clone git@github.com:lua511/build-vhost-use-docker.git build-vhost-use-docker
-
-
-# as best practice, we export the root
-export PROJ_GIT_ROOT=${PROJECT_ROOT}/build-vhost-use-docker
+docker build --target nginx-service -t lua511/vhc_nginx_service ./sphinx
 
 ```
 
-## 2. prepare docker images
-
-### 1. sphinx
+### create from github
 
 ```
-docker build -t sphinx https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
+docker build --target quickstart -t lua511/vhc_quickstart https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
+
+docker build --target gen-all-html -t lua511/vhc_gen_html https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
+
+docker build --target gen-nginx-config -t lua511/vhc_config_nginx https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
+
+docker build --target nginx-service -t lua511/vhc_nginx_service https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
 ```
 
-or from local:
+# how to use
+
+## init new site
 
 ```
-docker build -t sphinx ./sphinx
-```
-
-### 2. gen-nginx-sites
+docker run --rm -it -v ${YOUR_PROJECT_ROOT}/${YOUR_DOMAIN_ROOT}:/data lua511/vhc_quickstart
 
 ```
-docker build -t gen-nginx-sites https://github.com/lua511/build-vhost-use-docker.git#master:gen-nginx-sites
-```
 
-or from local:
+## gen nginx sites config
 
 ```
-docker build -t gen-nginx-sites ./gen-nginx-sites
+docker run --rm -v${PROJECT_ROOT}:/wwwroot -v${PROJECT_ROOT}/wconfig:/wwwconfig lua511/vhc_config_nginx
 ```
 
-### 3. nginx
+## gen html
 
 ```
-docker build -t nginx https://github.com/lua511/build-vhost-use-docker.git#master:nginx
+docker run --rm -v ${PROJECT_ROOT}:/wwwroot lua511/vhc_gen_html
 ```
 
-or from local:
+## start nginx service
 
 ```
-docker build -t nginx ./nginx
+docker run -d --rm -v ${PROJECT_ROOT}:/wwwroot -v ${PROJECT_ROOT}/wconfig:/wwwconfig -p 80:80 -p 443:443 nginx
 ```
-
-
-if your like,google some information about sphinx
-
-## IMPORTANT wwwroot & wwwcfg may be created
-
-* if you clone the repo from git hub, you can see there is a wwwroot folder under the repo
-* if you just follow the text,create some folder:
-```
-# your root dir is YOUR_PROJECT_ROOT
-cd ${YOUR_PROJECT_ROOT}
-mkdir wwwroot
-mkdir wwwcfg
-
-# do export it as PROJECT_ROOT, if you wish to copy some following cmd
-export PROJECT_ROOT=$(pwd)
-```
-
-## 3. place some site under wwwroot
-
-*liuan.blog is your*
-
-### 1. create directory
-
-```
-cd ${PROJ_GIT_ROOT}
-cd wwwroot
-mkdir liuan.blog
-```
-
-### 2. init site as need
-
-```
-docker run --rm -it -v ${PROJECT_ROOT}/wwwroot/liuan.blog:/data -w /data sphinx sphinx-quickstart
-```
-
-### 3. build site as need
-
-```
-# IMPORTART change liuan.blog to your own domain name
-docker run --rm -v ${PROJECT_ROOT}/wwwroot/liuan.blog:/data -w /data sphinx make html
-```
-
-## 4. place another site under wwwroot
-
-do same thing as `3. place some site under wwwroot`
-
-## 6. generate config
-
-```
-docker run --rm -v ${PROJECT_ROOT}/wwwroot:/wwwroot -v ${PROJECT_ROOT}/wwwcfg:/wwwconfig gen-nginx-sites
-```
-
-## 7. start nginx service
-
-```
-docker run -d --rm -v ${PROJECT_ROOT}/wwwroot:/wwwroot -v ${PROJECT_ROOT}/wwwcfg:/wwwconfig -p 80:80 -p 443:443 nginx
-```
-
-
-
-# hint
-
-the vhost is setup completed. DO REMEMBER set your hosts DNS.

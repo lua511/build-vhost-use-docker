@@ -10,7 +10,7 @@ def gen_all_sites():
     script_path = os.path.dirname(script_path)
     file_name = os.path.join(script_path,'make_all.sh')
     dirs = os.listdir(root_dir)
-    host_pattern = r'^[a-zA-Z0-9\-\.]+\.(com|org|net|wiki|cc|cn|blog|xyz|local)$'
+    from common_config import host_pattern
     sites = 0
     with open(file_name,'w') as s:
         for k in dirs:
