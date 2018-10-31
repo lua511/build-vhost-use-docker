@@ -36,6 +36,36 @@ docker build --target gen-nginx-config -t vhc_config_nginx https://github.com/lu
 docker build --target nginx-service -t vhc_nginx_service https://github.com/lua511/build-vhost-use-docker.git#master:sphinx
 ```
 
+### e.g. push to docker hub
+
+
+#### tag
+```
+docker tag vhc_quickstart lua511/vhc_quickstart
+
+docker tag vhc_gen_html lua511/vhc_gen_html
+
+docker tag vhc_clean_all lua511/vhc_clean_all
+
+docker tag vhc_config_nginx lua511/vhc_config_nginx
+
+docker tag vhc_nginx_service lua511/vhc_nginx_service
+```
+
+#### push
+
+```
+docker push lua511/vhc_quickstart
+
+docker push lua511/vhc_gen_html
+
+docker push lua511/vhc_clean_all
+
+docker push lua511/vhc_config_nginx
+
+docker push lua511/vhc_nginx_service
+```
+
 # how to use
 
 ## init new site
