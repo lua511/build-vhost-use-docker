@@ -24,7 +24,7 @@ FROM sphinx-base as gen-nginx-config
 VOLUME /wwwroot
 VOLUME /wwwconfig
 WORKDIR /wdir
-ENTRYPOINT ./gen_config.py
+ENTRYPOINT python3 find_host.py
 
 FROM ubuntu-chinese as nginx-service
 VOLUME /wwwroot
