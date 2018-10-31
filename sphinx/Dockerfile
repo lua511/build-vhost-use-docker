@@ -36,7 +36,8 @@ RUN sed -i "s/^exit 101$/exit 0/" /usr/sbin/policy-rc.d \
     && apt-get update \
     && apt-get install -y nginx \
     && rm -rf /etc/nginx/sites-available && ln -s /wwwconfig /etc/nginx/sites-available \
-    && rm -rf /etc/nginx/sites-enabled && ln -s /wwwconfig /etc/nginx/sites-enabled
+    && rm -rf /etc/nginx/sites-enabled && ln -s /wwwconfig /etc/nginx/sites-enabled \
+    && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80 443
 
