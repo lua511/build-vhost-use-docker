@@ -56,5 +56,5 @@ docker run --rm -v ${PROJECT_ROOT}:/wwwroot lua511/vhc_gen_html
 ## start nginx service
 
 ```
-docker run -d --rm -v ${PROJECT_ROOT}:/wwwroot -v ${PROJECT_ROOT}/wconfig:/wwwconfig -p 80:80 -p 443:443 nginx
+docker run -d --rm -v ${PROJECT_ROOT}:/wwwroot -v ${PROJECT_ROOT}/wconfig:/wwwconfig -p 80:80 -p 443:443 lua511/vhc_nginx_service
 ```
